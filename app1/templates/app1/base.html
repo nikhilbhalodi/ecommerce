@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+{% load static %} {% load cart_template_tags %}
+<html>
+  <head>
+    <!-- Basic -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Mobile Metas -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <!-- Site Metas -->
+    <link
+      rel="icon"
+      href="{% static 'images/fevicon.png' %}"
+      type="image/gif"
+    />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>{% block head_title %}NBkart{% endblock %}</title>
+
+    <!-- bootstrap core css -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/bootstrap.css' %}"
+    />
+
+    <!-- fonts style -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- range slider -->
+
+    <!-- font awesome style -->
+    <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" />
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+    <!-- responsive style -->
+    <link href="{% static 'css/responsive.css' %}" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/custom.css' %}" rel="stylesheet" />
+  </head>
+
+  <body>
+    {% include "app1/navbar.html" %}
+
+
+    <div>
+      {% if messages %} {% for message in messages %}
+      <div
+        class="alert alert-{{ message.tags }} alert-dismissible fade show"
+        role="alert"
+      >
+        {{ message }}
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endfor %} {% endif %}
+    </div>
+  <div class="hero_area">
+    {% block content %} {% endblock content %} {% block extra_body %} {% endblock %} {% include "app1/footer.html" %}
+
+    <!-- jQery -->
+    <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+    <!-- bootstrap js -->
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <!-- custom js -->
+    <script src="{% static 'js/custom.js' %}"></script>
+  </body>
+</html>

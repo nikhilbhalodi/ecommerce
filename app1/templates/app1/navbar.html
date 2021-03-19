@@ -1,0 +1,104 @@
+{% load cart_template_tags %}
+
+<!-- header section strats -->
+
+  <!-- header section strats -->
+  <header class="header_section">
+    <div class="header_top">
+      <div class="container-fluid">
+        <div class="top_nav_container">
+          <div class="contact_nav">
+            <a href="">
+              <i class="fa fa-phone" aria-hidden="true"></i>
+              <span>Call : +91 9904924290</span>
+            </a>
+            <a href="">
+              <i class="fa fa-envelope" aria-hidden="true"></i>
+              <span>Email : NBkart@gmail.com</span>
+            </a>
+          </div>
+          <form method="get" action="{% url 'app1:home' %}" value="{{request.GET.q}}" class="search_form">
+
+            <input name="q" type="search" value="{{request.GET.q}}" class="form-control" placeholder="Search" />
+
+            <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+
+          </form>
+          <ul class="nav-flex-icons list-inline" style="list-style:none">
+            <div class="user_option_box">
+              <li>
+                <a href="{% url 'app1:order-summary' %}" class="cart-link">
+                  <span class="badge badge-pill badge-warning"> {{ request.user|cart_product_count }} </span>
+                  <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                  <span>
+                    Cart
+                  </span>
+                </a>
+              </li>
+              {% if request.user.is_authenticated %}
+              <li class="list-inline-item">
+                <a href="" class="account-link">
+                  <i class="fa fa-user" aria-hidden="true"></i>
+                  <span>
+                    {{request.user}}
+                  </span>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a class="nav-link waves-effect" href="{% url 'account_logout' %}">
+                  <span class="clearfix d-none d-sm-inline-block">Logout</span>
+                </a>
+              </li>
+              {% else %}
+              <li class="list-inline-item">
+                <a class="nav-link waves-effect" href="{% url 'account_login' %}">
+                  <i class="fa fa-sign-in" aria-hidden="true"></i>
+                  <span class="clearfix d-none d-sm-inline-block">Login</span>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a class="nav-link waves-effect" href="{% url 'account_signup' %}">
+                  <i class="fa fa-user-plus" aria-hidden="true"></i>
+                  <span class="clearfix d-none d-sm-inline-block">Signup</span>
+                </a>
+              </li>{% endif %}
+            </div>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="header_bottom">
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg custom_nav-container ">
+          <a class="navbar-brand" href="/">
+            <span>
+              NBkart
+            </span>
+          </a>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class=""> </span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ">
+              <li class="nav-item active">
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="app1/about.html"> About</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="app1/why.html">Why Us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="app1/testimonial.html">Testimonial</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </header>

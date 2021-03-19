@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <link rel="icon" href="{% static 'images/fevicon.png' %}" type="image/gif" />
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title>NBkart</title>
+
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet"> <!-- range slider -->
+
+  <!-- font awesome style -->
+  <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" />
+
+  <!-- Custom styles for this template -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="{% static 'css/responsive.css' %}" rel="stylesheet" />
+
+</head>
+
+<body class="sub_page">
+
+  <div class="hero_area">
+    <!-- header section strats -->
+    <header class="header_section">
+      <div class="header_top">
+        <div class="container-fluid">
+          <div class="top_nav_container">
+            <div class="contact_nav">
+              <a href="">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <span>
+                  Call : +91 9904924290
+                </span>
+              </a>
+              <a href="">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                <span>
+                  Email : NBkart@gmail.com
+                </span>
+              </a>
+            </div>
+            <from class="search_form">
+              <input type="text" class="form-control" placeholder="Search here...">
+              <button class="" type="submit">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </button>
+            </from>
+            <div class="user_option_box">
+              <ul class="nav-flex-icons list-inline" style="list-style:none">
+                <div class="user_option_box">
+               
+                 
+                  
+                  
+                    {% if request.user.is_authenticated %}
+                    <li class="list-inline-item">
+                      <a href="" class="account-link">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                        <span>
+                          {{request.user}}
+                        </span>
+                      </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                      <a class="nav-link waves-effect " href="{% url 'account_logout' %}">
+                        <span class="clearfix d-none d-sm-inline-block"> Logout </span>
+                      </a>
+                    </li>
+                    {% else %}
+                    <li class="list-inline-item">
+                      <a class="nav-link waves-effect" href="{% url 'account_login' %}">
+                        <span class="clearfix d-none d-sm-inline-block"> Login </span>
+                      </a>  
+                    </li>
+                    <li class="list-inline-item">
+                      <a class="nav-link waves-effect" href="{% url 'account_signup' %}">
+                        <span class="clearfix d-none d-sm-inline-block"> Signup </span>
+                      </a>
+                    </li>
+                  {% endif %}
+
+              
+              
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="header_bottom">
+        <div class="container-fluid">
+          <nav class="navbar navbar-expand-lg custom_nav-container ">
+            <a class="navbar-brand" href="index.html">
+              <span>
+                NBkart
+              </span>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class=""> </span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav ">
+                <li class="nav-item ">
+                  <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="about.html"> About</a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="product.html">Products</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="why.html">Why Us</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="testimonial.html">Testimonial</a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </header>
+    <!-- end header section -->
+  </div>
+  <div class="">
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        {% endfor %}
+    {% endif %}
+  </div>
+
+
+  <!-- product section -->
+  <main>
+    <div class="container p-4">
+
+    <div class="table-responsive text-nowrap">
+    <h2>Order Summary</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Total Product Price</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for order_product in object.products.all %}
+        <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td><a href="{% url 'app1:product' order_product.product.slug %}">{{ order_product.product.name }}</a></td>
+            <td>{{ order_product.product.price }}</td>
+            
+            <td>
+              <a style='color: red;' href="{% url 'app1:remove-single-product-from-cart' order_product.product.slug %}"><i class="fa fa-minus mr-2"></i> </a>
+               {{ order_product.qty }}
+              <a href="{% url 'app1:add-to-cart' order_product.product.slug %}"><i class="fa fa-plus ml-2"></i></a>
+            </td>
+            <td>
+            {% if order_product.product.discount_price %}
+                ${{ order_product.get_amount_saved }}
+                <span class="badge badge-primary">Saving ${{ order_product.get_total_discount_product_price }}</span>
+            {% else %}
+                ${{ order_product.get_total_product_price }}
+            {% endif %}
+            </td>
+            <td class="align-middle">
+              <a style='color: red;' href="{% url 'app1:remove-from-cart' order_product.product.slug %}"><i class="fa fa-trash"></i> </a> 
+            </td>
+            
+                
+            
+        </tr>
+                
+        {% empty %}
+                <tr>
+                    <td colspan='5'>Your cart is empty</td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                    <a class='btn btn-primary float-right' href='/'>Continue shopping</a>
+                    </td>
+                </tr>
+                
+        {% endfor %}
+        {% if object.coupon %}
+        <tr>
+            <td colspan="4"><b>Coupon</b></td>
+            <td><b>-${{ object.coupon.amount }}</b></td>
+        </tr>
+        {% endif %}
+        {% if object.get_total %}
+        <tr>
+            <td colspan="4"><b>Order Total</b></td>
+            <td><b>${{ object.get_total }}</b></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="5">
+            <a class='btn btn-warning float-right ml-2' href='/checkout/'>Proceed to checkout</a>
+            <a class='btn btn-primary float-right' href='/'>Continue shopping</a>
+            </td>
+            <td></td>
+        </tr>
+        {% endif %}
+        </tbody>
+    </table>
+
+    </div>
+
+    </div>
+  </main>
+
+
+  <!-- end product section -->
+
+
+  <!-- info section -->
+  <section class="info_section ">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="info_contact">
+            <h5>
+              <a href="" class="navbar-brand">
+                <span>
+                  NBkart
+                </span>
+              </a>
+            </h5>
+            <p>
+              <i class="fa fa-map-marker" aria-hidden="true"></i>
+              Moviya
+            </p>
+            <p>
+              <i class="fa fa-phone" aria-hidden="true"></i>
+              +91 9904924290
+            </p>
+            <p>
+              <i class="fa fa-envelope" aria-hidden="true"></i>
+              NBkart@gmail.com
+            </p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="info_info">
+            <h5>
+              Information
+            </h5>
+            <p>
+              Eligendi sunt, provident, debitis nemo, facilis cupiditate velit libero dolorum aperiam enim nulla iste maxime corrupti ad illo libero minus.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="info_links">
+            <h5>
+              Useful Link
+            </h5>
+            <ul>
+              <li>
+                <a href="index.html">
+                  Home
+                </a>
+              </li>
+              <li>
+                <a href="about.html">
+                  About
+                </a>
+              </li>
+              <li>
+                <a href="product.html">
+                  Products
+                </a>
+              </li>
+              <li>
+                <a href="why.html">
+                  Why Us
+                </a>
+              </li>
+              <li>
+                <a href="testimonial.html">
+                  Testimonial
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="info_form ">
+            <h5>
+              Newsletter
+            </h5>
+            <form action="">
+              <input type="email" placeholder="Enter your email">
+              <button>
+                Subscribe
+              </button>
+            </form>
+            <div class="social_box">
+              <a href="">
+                <i class="fa fa-facebook" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-instagram" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-youtube" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- end info_section -->
+
+
+  <!-- footer section -->
+  <footer class="footer_section">
+    <div class="container">
+      <p>
+        &copy; <span id="displayYear"></span> All Rights Reserved By
+        <a href="https://html.design/">Free Html Templates</a>
+      </p>
+    </div>
+  </footer>
+  <!-- footer section -->
+
+  <!-- jQery -->
+  <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+  <!-- bootstrap js -->
+  <script src="{% static 'js/bootstrap.js' %}"></script>
+  <!-- custom js -->
+  <script src="{% static 'js/custom.js' %}"></script>
+
+
+</body>
+
+</html>

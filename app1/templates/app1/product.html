@@ -1,0 +1,44 @@
+{% extends "app1/base.html" %} {% load static %} {% load cart_template_tags %}
+{% block content %}
+
+<section class="product_section layout_padding">
+  <div class="container">
+    <div class="heading_container heading_center">
+      <h2 class="text-info">Product Details : {{object.name}}</h2>
+    </div>
+    <div class="row">
+      <div class="box m-auto">
+        <div class="img-box">
+          <img
+            src="{{object.photo.url}}"
+            alt="my-product-photo"
+            height="100px"
+          />
+
+          <a href="{{ object.get_add_to_cart_url }}" class="add_cart_btn">
+            <span> Add To Cart </span>
+          </a>
+        </div>
+        <div class="detail-box">
+          <h2>{{object.name}}</h2>
+          <span class="text-info"> Category: </span>
+          {{ object.get_category_display }}
+          <span class="text-info">Description:</span>
+          <h5>{{object.des}}</h5>
+          <span class="text-info"> Price: </span>
+          <h5 class="text-dark">₹{{object.price}}</h5>
+
+          <div class="star_container">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}
